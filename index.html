@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleWear - Loja de Roupas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* HEADER */
+        header {
+            background-color: #000;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #999;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .search-box {
+            background-color: #333;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box input {
+            background: none;
+            border: none;
+            color: #fff;
+            width: 150px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-box input::placeholder {
+            color: #999;
+        }
+
+        .cart-icon {
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .cart-icon:hover {
+            color: #999;
+        }
+
+        /* BANNER */
+        .banner {
+            background: linear-gradient(135deg, #1a1a1a 0%, #404040 100%);
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .banner h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .banner p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+
+        .banner-btn {
+            background-color: #fff;
+            color: #000;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .banner-btn:hover {
+            background-color: #ccc;
+            transform: scale(1.05);
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* SEÇÃO DE PRODUTOS */
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: #000;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* GRID DE PRODUTOS */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* CARD DO PRODUTO */
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            background-color: #e0e0e0;
+            width: 100%;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: #999;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image:hover {
+            background-color: #d0d0d0;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #000;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            color: #999;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .product-description {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .product-price-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .product-original-price {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+
+        .product-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .product-btn:hover {
+            background-color: #333;
+        }
+
+        /* SEÇÃO DE CATEGORIAS */
+        .categories-section {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 60px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background-color: #f5f5f5;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            background-color: #000;
+            color: #fff;
+            border-color: #333;
+        }
+
+        .category-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .category-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 50px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            text-align: center;
+            color: #999;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 15px;
+            }
+
+            .banner h1 {
+                font-size: 32px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .search-box input {
+                width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <div class="logo">StyleWear</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#produtos">Produtos</a></li>
+                    <li><a href="#categorias">Categorias</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar...">
+                    <span>🔍</span>
+                </div>
+                <div class="cart-icon">🛒</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BANNER -->
+    <section class="banner" id="home">
+        <h1>COLEÇÃO NOVA</h1>
+        <p>Descubra os melhores estilos da temporada</p>
+        <button class="banner-btn">COMPRAR AGORA</button>
+    </section>
+
+    <!-- CATEGORIAS -->
+    <section class="container" id="categorias">
+        <h2 class="section-title">Categorias</h2>
+        <div class="categories-section">
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">👔</div>
+                    <div class="category-name">Camisetas</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">👖</div>
+                    <div class="category-name">Calças</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🧥</div>
+                    <div class="category-name">Jaquetas</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">👗</div>
+                    <div class="category-name">Vestidos</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🧢</div>
+                    <div class="category-name">Acessórios</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">👟</div>
+                    <div class="category-name">Sapatos</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS EM DESTAQUE -->
+    <section class="container" id="produtos">
+        <h2 class="section-title">Produtos em Destaque</h2>
+        <div class="products-grid">
+
+            <!-- PRODUTO 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    👕
+                    <span class="product-badge">-20%</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Camisetas</div>
+                    <div class="product-name">Camiseta Básica Preta</div>
+                    <div class="product-description">Camiseta 100% algodão, confortável e versátil.</div>
+                    <div class="product-price-section">
+                        <div>
+                            <span class="product-original-price">R$ 79,90</span>
+                            <div class="product-price">R$ 63,92</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <!-- PRODUTO 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    👖
+                    <span class="product-badge">-15%</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Calças</div>
+                    <div class="product-name">Calça Jeans Premium</div>
+                    <div class="product-description">Jeans de alta qualidade com corte moderno e conforto.</div>
+                    <div class="product-price-section">
+                        <div>
+                            <span class="product-original-price">R$ 149,90</span>
+                            <div class="product-price">R$ 127,42</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <!-- PRODUTO 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    🧥
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Jaquetas</div>
+                    <div class="product-name">Jaqueta de Couro Cinza</div>
+                    <div class="product-description">Jaqueta elegante e sofisticada para qualquer ocasião.</div>
+                    <div class="product-price-section">
+                        <div>
+                            <div class="product-price">R$ 299,90</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <!-- PRODUTO 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    👗
+                    <span class="product-badge">NOVO</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Vestidos</div>
+                    <div class="product-name">Vestido Branco Elegante</div>
+                    <div class="product-description">Vestido sofisticado perfeito para eventos especiais.</div>
+                    <div class="product-price-section">
+                        <div>
+                            <div class="product-price">R$ 189,90</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <!-- PRODUTO 5 -->
+            <div class="product-card">
+                <div class="product-image">
+                    🧢
+                    <span class="product-badge">-30%</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Acessórios</div>
+                    <div class="product-name">Boné Preto Clássico</div>
+                    <div class="product-description">Boné ajustável com design minimalista e clássico.</div>
+                    <div class="product-price-section">
+                        <div>
+                            <span class="product-original-price">R$ 59,90</span>
+                            <div class="product-price">R$ 41,93</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <!-- PRODUTO 6 -->
+            <div class="product-card">
+                <div class="product-image">
+                    👟
+                    <span class="product-badge">-25%</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Sapatos</div>
+                    <div class="product-name">Tênis Branco Esportivo</div>
+                    <div class="product-description">Tênis confortável e estiloso para o dia a dia.</div>
+                    <div class="product-price-section">
+                        <div>
+                            <span class="product-original-price">R$ 199,90</span>
+                            <div class="product-price">R$ 149,93</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <!-- PRODUTO 7 -->
+            <div class="product-card">
+                <div class="product-image">
+                    🧣
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Acessórios</div>
+                    <div class="product-name">Cachecol Cinzento</div>
+                    <div class="product-description">Cachecol morno e confortável para os meses frios.</div>
+                    <div class="product-price-section">
+                        <div>
+                            <div class="product-price">R$ 89,90</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <!-- PRODUTO 8 -->
+            <div class="product-card">
+                <div class="product-image">
+                    🧤
+                    <span class="product-badge">NOVO</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Acessórios</div>
+                    <div class="product-name">Luvas de Couro Preto</div>
+                    <div class="product-description">Luvas elegantes e quentes em couro genuíno.</div>
+                    <div class="product-price-section">
+                        <div>
+                            <div class="product-price">R$ 119,90</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <!-- PRODUTO 9 -->
+            <div class="product-card">
+                <div class="product-image">
+                    👔
+                    <span class="product-badge">-10%</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Camisetas</div>
+                    <div class="product-name">Camisa Social Branca</div>
+                    <div class="product-description">Camisa elegante para ocasiões formais e profissionais.</div>
+                    <div class="product-price-section">
+                        <div>
+                            <span class="product-original-price">R$ 139,90</span>
+                            <div class="product-price">R$ 125,91</div>
+                        </div>
+                    </div>
+                    <button class="product-btn">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contato">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SOBRE NÓS</h3>
+                <p style="color: #ccc; margin-bottom: 15px;">StyleWear é sua loja de moda online com os melhores produtos e preços do mercado.</p>
+            </div>
+            <div class="footer-section">
+                <h3>LINKS RÁPIDOS</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Produtos</a></li>
+                    <li><a href="#">Categorias</a></li>
+                    <li><a href="#">Sobre</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>ATENDIMENTO</h3>
+                <ul>
+                    <li><a href="#">Contato</a></li>
+                    <li><a href="#">Fale Conosco</a></li>
+                    <li><a href="#">Dúvidas Frequentes</a></li>
+                    <li><a href="#">Política de Devolução</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>REDES SOCIAIS</h3>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 StyleWear. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
